@@ -9,23 +9,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var contentNode = document.getElementById("contents");
-var issues = [{
-  id: 1,
-  status: "Open",
-  owner: "Raven",
-  created: new Date("2016-08-15"),
-  effort: 5,
-  completionDate: undefined,
-  title: "Error in console when clicking Add"
-}, {
-  id: 2,
-  status: "Assigned",
-  owner: "Eddie",
-  created: new Date("2016-08-16"),
-  effort: 15,
-  completionDate: new Date("2016-08-30"),
-  title: "Missing bottom border on panel"
-}];
 
 var IssueFilter = function (_React$Component) {
   _inherits(IssueFilter, _React$Component);
@@ -223,17 +206,38 @@ var IssueList = function (_React$Component3) {
     value: function loadData() {
       var _this4 = this;
 
-      setTimeout(function () {
-        _this4.setState({ issues: issues });
-      }, 1000);
+      fetch("/api/issues").then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log("Total count of records:", data._metadata.total_count);
+        data.records.forEach(function (issue) {
+          issue.created = new Date(issue.created);
+          if (issue.completionDate) issue.completionDate = new Date(issue.completionDate);
+        });
+        _this4.setState({ issues: data.records });
+      }).catch(function (err) {
+        return console.error(err);
+      });
     }
   }, {
     key: "createIssue",
     value: function createIssue(newIssue) {
-      var newIssues = this.state.issues.slice();
-      newIssue.id = this.state.issues.length + 1;
-      newIssues.push(newIssue);
-      this.setState({ issues: newIssues });
+      var _this5 = this;
+
+      fetch("/api/issues", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newIssue)
+      }).then(function (response) {
+        return response.json();
+      }).then(function (updatedIssue) {
+        updatedIssue.created = new Date(updatedIssue.created);
+        if (updatedIssue.completionDate) updatedIssue.completionDate = new Date(updatedIssue.completionDate);
+        var newIssues = _this5.state.issues.concat(updatedIssue);
+        _this5.setState({ issues: newIssues });
+      }).catch(function (err) {
+        return console.error("Error in sending data to server: " + err.message);
+      });
     }
   }, {
     key: "render",
