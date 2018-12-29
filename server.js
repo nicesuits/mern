@@ -1,7 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const MongoClient = require("mongodb").MongoClient;
 
 const app = express();
+let db;
+
 app.use(express.static("static"));
 app.use(bodyParser.json());
 
@@ -27,8 +30,17 @@ const issues = [
 ];
 
 app.get("/api/issues", (req, res) => {
-  const metadata = { total_count: issues.length };
-  res.json({ _metadata: metadata, records: issues });
+  db.collection("issues")
+    .find()
+    .toArray()
+    .then(issues => {
+      const metadata = { total_count: issues.length };
+      res.json({ _metadata: metadata, records: issues });
+    })
+    .catch(err => {
+      console.error(`[MongoDB - FETCH ERROR]: ${err}`);
+      res.status(500).json({ message: `Internal Server Error: ${err}` });
+    });
 });
 
 app.post("/api/issues", (req, res) => {
@@ -40,6 +52,11 @@ app.post("/api/issues", (req, res) => {
   res.json(newIssue);
 });
 
-app.listen(3000, () => {
-  console.log("App started on port 3000");
-});
+MongoClient.connect("mongodb://localhost")
+  .then(client => {
+    db = client.db("issuetracker");
+    app.listen(3000, () => {
+      console.log("App started on port 3000");
+    });
+  })
+  .catch(err => console.error(`[MongoDB - ERROR]: ${err}`));
