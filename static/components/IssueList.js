@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
 var _IssueAdd = require("./IssueAdd");
 
 var _IssueAdd2 = _interopRequireDefault(_IssueAdd);
@@ -24,55 +28,55 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function IssueTable(props) {
   var issueRows = props.issues.map(function (issue) {
-    return React.createElement(IssueRow, { key: issue._id, issue: issue });
+    return _react2.default.createElement(IssueRow, { key: issue._id, issue: issue });
   });
-  return React.createElement(
+  return _react2.default.createElement(
     "table",
     { className: "bordered-table" },
-    React.createElement(
+    _react2.default.createElement(
       "thead",
       null,
-      React.createElement(
+      _react2.default.createElement(
         "tr",
         null,
-        React.createElement(
+        _react2.default.createElement(
           "th",
           null,
           "ID"
         ),
-        React.createElement(
+        _react2.default.createElement(
           "th",
           null,
           "Status"
         ),
-        React.createElement(
+        _react2.default.createElement(
           "th",
           null,
           "Owner"
         ),
-        React.createElement(
+        _react2.default.createElement(
           "th",
           null,
           "Created"
         ),
-        React.createElement(
+        _react2.default.createElement(
           "th",
           null,
           "Effort"
         ),
-        React.createElement(
+        _react2.default.createElement(
           "th",
           null,
           "Completion Date"
         ),
-        React.createElement(
+        _react2.default.createElement(
           "th",
           null,
           "Title"
         )
       )
     ),
-    React.createElement(
+    _react2.default.createElement(
       "tbody",
       null,
       issueRows
@@ -81,40 +85,40 @@ function IssueTable(props) {
 }
 
 var IssueRow = function IssueRow(props) {
-  return React.createElement(
+  return _react2.default.createElement(
     "tr",
     null,
-    React.createElement(
+    _react2.default.createElement(
       "td",
       null,
       props.issue._id
     ),
-    React.createElement(
+    _react2.default.createElement(
       "td",
       null,
       props.issue.status
     ),
-    React.createElement(
+    _react2.default.createElement(
       "td",
       null,
       props.issue.owner
     ),
-    React.createElement(
+    _react2.default.createElement(
       "td",
       null,
       props.issue.created.toDateString()
     ),
-    React.createElement(
+    _react2.default.createElement(
       "td",
       null,
       props.issue.effort
     ),
-    React.createElement(
+    _react2.default.createElement(
       "td",
       null,
       props.issue.completionDate ? props.issue.completionDate.toDateString() : ""
     ),
-    React.createElement(
+    _react2.default.createElement(
       "td",
       null,
       props.issue.title
@@ -187,24 +191,24 @@ var IssueList = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement(
+      return _react2.default.createElement(
         "div",
         null,
-        React.createElement(
+        _react2.default.createElement(
           "h1",
           null,
           "Issue Tracker"
         ),
-        React.createElement(_IssueFilter2.default, null),
-        React.createElement("hr", null),
-        React.createElement(IssueTable, { issues: this.state.issues }),
-        React.createElement("hr", null),
-        React.createElement(_IssueAdd2.default, { createIssue: this.createIssue })
+        _react2.default.createElement(_IssueFilter2.default, null),
+        _react2.default.createElement("hr", null),
+        _react2.default.createElement(IssueTable, { issues: this.state.issues }),
+        _react2.default.createElement("hr", null),
+        _react2.default.createElement(_IssueAdd2.default, { createIssue: this.createIssue })
       );
     }
   }]);
 
   return IssueList;
-}(React.Component);
+}(_react2.default.Component);
 
 exports.default = IssueList;
