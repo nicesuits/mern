@@ -43,7 +43,10 @@ app.post("/api/issues", (req, res) => {
     });
 });
 
-MongoClient.connect("mongodb://localhost")
+MongoClient.connect(
+  "mongodb://localhost",
+  { useNewUrlParser: true }
+)
   .then(client => {
     db = client.db("issuetracker");
     app.listen(3000, () => {
