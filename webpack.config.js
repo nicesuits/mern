@@ -4,6 +4,7 @@ module.exports = {
     path: __dirname + "./static",
     filename: "app.bundle.js"
   },
+  devtool: "inline-source-map",
   module: {
     rules: [
       {
