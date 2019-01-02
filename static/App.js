@@ -1,19 +1,8 @@
-"use strict";
+import React from "react";
+import ReactDOM from "react-dom";
 
-var _react = require("react");
+import IssueList from "./components/IssueList";
 
-var _react2 = _interopRequireDefault(_react);
+const contentNode = document.getElementById("contents");
 
-var _reactDom = require("react-dom");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _IssueList = require("./components/IssueList");
-
-var _IssueList2 = _interopRequireDefault(_IssueList);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var contentNode = document.getElementById("contents");
-
-_reactDom2.default.render(_react2.default.createElement(_IssueList2.default, null), contentNode);
+ReactDOM.render(React.createElement(IssueList, null), contentNode);
