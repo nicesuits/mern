@@ -1,7 +1,7 @@
 module.exports = {
   entry: "./src/App.jsx",
   output: {
-    publicPth: "./static/",
+    publicPath: "./static/",
     path: __dirname + "./static",
     filename: "app.bundle.js"
   },
