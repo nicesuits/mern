@@ -1,7 +1,13 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class IssueEdit extends Component {
   render() {
-    return <div>This is a placeholder for the Issue Edit page</div>;
+    return (
+      <div>
+        <p>This is a placeholder for editing issues {this.props.params}</p>
+        <Link to="/issues">Back to issue list</Link>
+      </div>
+    );
   }
 }
