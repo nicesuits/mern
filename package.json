@@ -4,12 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "babel": "babel src --presets react,es2015 --out-dir static",
-    "babel-watch": "babel src --presets react,es2015 --out-dir static -w",
+    "babel": "babel src --presets react --out-dir static",
+    "babel-watch": "babel src --presets react --out-dir static -w",
     "nodemon": "nodemon server/server.js",
     "webpack": "webpack --mode=development static/App.js -o static/app.bundle.js",
-    "webpack-cli": "webpack-dev-server --inline --hot --module-bind 'jsx=react-hot-loader!babel-loader' --config webpack.dev-cli.config.js",
-    "webpack-dev": "webpack-dev-server --config webpack.dev.config.js",
     "webpack-watch": "webpack --mode=development static/App.js -o static/app.bundle.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,7 +17,11 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "mongodb": "^3.1.10"
+    "mongodb": "^3.1.10",
+    "query-string": "^6.2.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-router-dom": "^4.3.1"
   },
   "babel": {
     "presets": [
@@ -28,15 +30,10 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
     "babel-loader": "^8.0.4",
     "babel-preset-react": "^6.24.1",
     "nodemon": "^1.18.9",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-hot-loader": "^4.6.3",
     "webpack": "^4.28.3",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-cli": "^3.1.2"
   }
 }

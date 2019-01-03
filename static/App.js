@@ -1,19 +1,27 @@
-"use strict";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Route, Redirect, HashRouter, Switch, withRouter } from "react-router-dom";
 
-var _react = require("react");
+import IssueList from "./components/IssueList";
+import IssueEdit from "./components/IssueEdit";
 
-var _react2 = _interopRequireDefault(_react);
+const contentNode = document.getElementById("contents");
+const NoMatch = () => React.createElement(
+  "p",
+  null,
+  "Page Not Found"
+);
+const RoutedApp = () => React.createElement(
+  HashRouter,
+  null,
+  React.createElement(
+    Switch,
+    null,
+    React.createElement(Redirect, { exact: true, from: "/", to: "/issues" }),
+    React.createElement(Route, { exact: true, path: "/issues", component: withRouter(IssueList) }),
+    React.createElement(Route, { exact: true, path: "/issues/:id", component: IssueEdit }),
+    React.createElement(Route, { path: "*", component: NoMatch })
+  )
+);
 
-var _reactDom = require("react-dom");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _IssueList = require("./components/IssueList");
-
-var _IssueList2 = _interopRequireDefault(_IssueList);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var contentNode = document.getElementById("contents");
-
-_reactDom2.default.render(_react2.default.createElement(_IssueList2.default, null), contentNode);
+ReactDOM.render(React.createElement(RoutedApp, null), contentNode);
