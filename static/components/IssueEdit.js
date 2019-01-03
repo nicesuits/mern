@@ -9,9 +9,8 @@ export default class IssueEdit extends Component {
       React.createElement(
         "p",
         null,
-        "This is a placeholder for editing issues",
-        " ",
-        this.props.location.pathname
+        "This is a placeholder for editing issues ",
+        this.props.match.params.id
       ),
       React.createElement(
         Link,

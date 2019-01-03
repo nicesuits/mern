@@ -6,8 +6,7 @@ export default class IssueEdit extends Component {
     return (
       <div>
         <p>
-          This is a placeholder for editing issues{" "}
-          {this.props.location.pathname}
+          This is a placeholder for editing issues {this.props.match.params.id}
         </p>
         <Link to="/issues">Back to issue list</Link>
       </div>
