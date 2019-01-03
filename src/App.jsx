@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {
   Route,
   Redirect,
-  HashRouter,
+  BrowserRouter,
   Switch,
   withRouter
 } from "react-router-dom";
@@ -19,13 +19,13 @@ const App = () => (
       <h1>Issue Tracker</h1>
     </header>
     <main className="contents">
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
           <Route exact path="/issues" component={withRouter(IssueList)} />
           <Route exact path="/issues/:id" component={IssueEdit} />
           <Route path="*" component={NoMatch} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     </main>
     <footer className="footer">
       Full source code available at GitHub.com{" "}
@@ -37,12 +37,12 @@ const App = () => (
 );
 
 const RoutedApp = () => (
-  <HashRouter>
+  <BrowserRouter>
     <Switch>
       <Redirect exact from="/" to="/issues" />
       <Route path="/" component={App} />
     </Switch>
-  </HashRouter>
+  </BrowserRouter>
 );
 
 ReactDOM.render(<RoutedApp />, contentNode);

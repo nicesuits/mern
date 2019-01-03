@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
@@ -43,6 +44,10 @@ app.post("/api/issues", (req, res) => {
       console.error(`[MongoDB - INSERT ERROR]: ${err}`);
       res.status(500).json({ message: `Internal Server Error: ${err}` });
     });
+});
+
+app.get("*", (req, res) => {
+  res.sendfile(path.resolve("static/index.html"));
 });
 
 MongoClient.connect(

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Route, Redirect, HashRouter, Switch, withRouter } from "react-router-dom";
+import { Route, Redirect, BrowserRouter, Switch, withRouter } from "react-router-dom";
 
 import IssueList from "./components/IssueList";
 import IssueEdit from "./components/IssueEdit";
@@ -27,7 +27,7 @@ const App = () => React.createElement(
     "main",
     { className: "contents" },
     React.createElement(
-      HashRouter,
+      BrowserRouter,
       null,
       React.createElement(
         Switch,
@@ -52,7 +52,7 @@ const App = () => React.createElement(
 );
 
 const RoutedApp = () => React.createElement(
-  HashRouter,
+  BrowserRouter,
   null,
   React.createElement(
     Switch,
