@@ -118,10 +118,16 @@ export default class IssueList extends React.Component {
   componentDidUpdate(prevProps) {
     const oldQuery = prevProps.location.search;
     const newQuery = this.props.location.search;
-    if (oldQuery.status === newQuery.status) {
+    if (oldQuery.status === newQuery.status && oldQuery.effort_gte === newQuery.effort_gte && oldQuery.effort_lte === newQuery.effort_lte) {
       return;
     }
     this.loadData();
+  }
+  setFilter(query) {
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `?${qs.stringify(query)}`
+    });
   }
   loadData() {
     fetch(`/api/issues${this.props.location.search}`).then(response => {
@@ -155,17 +161,14 @@ export default class IssueList extends React.Component {
       this.setState({ issues: newIssues });
     }).catch(err => console.error(`Error in sending data to server: ${err.message}`));
   }
-  setFilter(query) {
-    this.props.history.push({
-      pathname: this.props.location.pathname,
-      search: `?${qs.stringify(query)}`
-    });
-  }
   render() {
     return React.createElement(
       "div",
       null,
-      React.createElement(IssueFilter, { setFilter: this.setFilter }),
+      React.createElement(IssueFilter, {
+        setFilter: this.setFilter,
+        initFilter: this.props.location.search
+      }),
       React.createElement("hr", null),
       React.createElement(IssueTable, { issues: this.state.issues }),
       React.createElement("hr", null),

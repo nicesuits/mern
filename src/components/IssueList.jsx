@@ -60,10 +60,20 @@ export default class IssueList extends React.Component {
   componentDidUpdate(prevProps) {
     const oldQuery = prevProps.location.search;
     const newQuery = this.props.location.search;
-    if (oldQuery.status === newQuery.status) {
+    if (
+      oldQuery.status === newQuery.status &&
+      oldQuery.effort_gte === newQuery.effort_gte &&
+      oldQuery.effort_lte === newQuery.effort_lte
+    ) {
       return;
     }
     this.loadData();
+  }
+  setFilter(query) {
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `?${qs.stringify(query)}`
+    });
   }
   loadData() {
     fetch(`/api/issues${this.props.location.search}`)
@@ -108,16 +118,13 @@ export default class IssueList extends React.Component {
         console.error(`Error in sending data to server: ${err.message}`)
       );
   }
-  setFilter(query) {
-    this.props.history.push({
-      pathname: this.props.location.pathname,
-      search: `?${qs.stringify(query)}`
-    });
-  }
   render() {
     return (
       <div>
-        <IssueFilter setFilter={this.setFilter} />
+        <IssueFilter
+          setFilter={this.setFilter}
+          initFilter={this.props.location.search}
+        />
         <hr />
         <IssueTable issues={this.state.issues} />
         <hr />
