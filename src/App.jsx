@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {
   Route,
   Redirect,
-  HashRouter,
+  BrowserRouter,
   Switch,
   withRouter
 } from "react-router-dom";
@@ -13,15 +13,36 @@ import IssueEdit from "./components/IssueEdit";
 
 const contentNode = document.getElementById("contents");
 const NoMatch = () => <p>Page Not Found</p>;
+const App = () => (
+  <div>
+    <header className="header">
+      <h1>Issue Tracker</h1>
+    </header>
+    <main className="contents">
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/issues" component={withRouter(IssueList)} />
+          <Route exact path="/issues/:id" component={IssueEdit} />
+          <Route path="*" component={NoMatch} />
+        </Switch>
+      </BrowserRouter>
+    </main>
+    <footer className="footer">
+      Full source code available at GitHub.com{" "}
+      <a href="https://github.com/raion314/mern" target="_blank">
+        Repo
+      </a>
+    </footer>
+  </div>
+);
+
 const RoutedApp = () => (
-  <HashRouter>
+  <BrowserRouter>
     <Switch>
       <Redirect exact from="/" to="/issues" />
-      <Route exact path="/issues" component={withRouter(IssueList)} />
-      <Route exact path="/issues/:id" component={IssueEdit} />
-      <Route path="*" component={NoMatch} />
+      <Route path="/" component={App} />
     </Switch>
-  </HashRouter>
+  </BrowserRouter>
 );
 
 ReactDOM.render(<RoutedApp />, contentNode);

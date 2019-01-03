@@ -156,7 +156,6 @@ export default class IssueList extends React.Component {
     }).catch(err => console.error(`Error in sending data to server: ${err.message}`));
   }
   setFilter(query) {
-    console.log(qs.stringify(query));
     this.props.history.push({
       pathname: this.props.location.pathname,
       search: `?${qs.stringify(query)}`
@@ -166,11 +165,6 @@ export default class IssueList extends React.Component {
     return React.createElement(
       "div",
       null,
-      React.createElement(
-        "h1",
-        null,
-        "Issue Tracker"
-      ),
       React.createElement(IssueFilter, { setFilter: this.setFilter }),
       React.createElement("hr", null),
       React.createElement(IssueTable, { issues: this.state.issues }),

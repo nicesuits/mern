@@ -109,7 +109,6 @@ export default class IssueList extends React.Component {
       );
   }
   setFilter(query) {
-    console.log(qs.stringify(query));
     this.props.history.push({
       pathname: this.props.location.pathname,
       search: `?${qs.stringify(query)}`
@@ -118,7 +117,6 @@ export default class IssueList extends React.Component {
   render() {
     return (
       <div>
-        <h1>Issue Tracker</h1>
         <IssueFilter setFilter={this.setFilter} />
         <hr />
         <IssueTable issues={this.state.issues} />
