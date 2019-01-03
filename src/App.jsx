@@ -13,13 +13,30 @@ import IssueEdit from "./components/IssueEdit";
 
 const contentNode = document.getElementById("contents");
 const NoMatch = () => <p>Page Not Found</p>;
+const App = () => (
+  <div>
+    <header className="header">
+      <h1>Issue Tracker</h1>
+    </header>
+    <main className="contents">
+      <Route exact path="/issues" component={withRouter(IssueList)} />
+      <Route exact path="/issues/:id" component={IssueEdit} />
+      <Route path="*" component={NoMatch} />
+    </main>
+    <footer className="footer">
+      Full source code available at GitHub.com{" "}
+      <a href="https://github.com/raion314/mern" target="_blank">
+        Repo
+      </a>
+    </footer>
+  </div>
+);
+
 const RoutedApp = () => (
   <HashRouter>
     <Switch>
       <Redirect exact from="/" to="/issues" />
-      <Route exact path="/issues" component={withRouter(IssueList)} />
-      <Route exact path="/issues/:id" component={IssueEdit} />
-      <Route path="*" component={NoMatch} />
+      <Route path="/" component={App} />
     </Switch>
   </HashRouter>
 );

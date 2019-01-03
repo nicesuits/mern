@@ -166,11 +166,6 @@ export default class IssueList extends React.Component {
     return React.createElement(
       "div",
       null,
-      React.createElement(
-        "h1",
-        null,
-        "Issue Tracker"
-      ),
       React.createElement(IssueFilter, { setFilter: this.setFilter }),
       React.createElement("hr", null),
       React.createElement(IssueTable, { issues: this.state.issues }),
