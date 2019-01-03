@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, Link, HashRouter, Switch } from "react-router-dom";
+import { Route, HashRouter, Switch } from "react-router-dom";
 
 import IssueList from "./components/IssueList";
 import IssueEdit from "./components/IssueEdit";
@@ -17,11 +17,10 @@ const RoutedApp = () => React.createElement(
   React.createElement(
     Switch,
     null,
-    React.createElement(Route, { path: "/", component: IssueList }),
-    React.createElement(Route, { path: "/issueEdit", component: IssueEdit }),
+    React.createElement(Route, { exact: true, path: "/", component: IssueList }),
+    React.createElement(Route, { exact: true, path: "/issueEdit", component: IssueEdit }),
     React.createElement(Route, { path: "*", component: NoMatch })
   )
 );
 
-// ReactDOM.render(<IssueList />, contentNode);
 ReactDOM.render(React.createElement(RoutedApp, null), contentNode);
