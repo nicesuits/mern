@@ -156,7 +156,6 @@ export default class IssueList extends React.Component {
     }).catch(err => console.error(`Error in sending data to server: ${err.message}`));
   }
   setFilter(query) {
-    console.log(qs.stringify(query));
     this.props.history.push({
       pathname: this.props.location.pathname,
       search: `?${qs.stringify(query)}`
