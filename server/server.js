@@ -52,7 +52,7 @@ app.post("/api/issues", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendfile(path.resolve("static/index.html"));
+  res.sendFile(path.resolve("static/index.html"));
 });
 
 MongoClient.connect(
