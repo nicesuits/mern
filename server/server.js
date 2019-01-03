@@ -9,8 +9,11 @@ app.use(express.static("static"));
 app.use(bodyParser.json());
 
 app.get("/api/issues", (req, res) => {
+  const filter = {};
+  console.log(req.query);
+  if (req.query.status) filter.status = req.query.status;
   db.collection("issues")
-    .find()
+    .find(filter)
     .toArray()
     .then(issues => {
       const metadata = { total_count: issues.length };
