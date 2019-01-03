@@ -26,9 +26,17 @@ const App = () => React.createElement(
   React.createElement(
     "main",
     { className: "contents" },
-    React.createElement(Route, { exact: true, path: "/issues", component: withRouter(IssueList) }),
-    React.createElement(Route, { exact: true, path: "/issues/:id", component: IssueEdit }),
-    React.createElement(Route, { path: "*", component: NoMatch })
+    React.createElement(
+      HashRouter,
+      null,
+      React.createElement(
+        Switch,
+        null,
+        React.createElement(Route, { exact: true, path: "/issues", component: withRouter(IssueList) }),
+        React.createElement(Route, { exact: true, path: "/issues/:id", component: IssueEdit }),
+        React.createElement(Route, { path: "*", component: NoMatch })
+      )
+    )
   ),
   React.createElement(
     "footer",

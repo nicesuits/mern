@@ -19,9 +19,13 @@ const App = () => (
       <h1>Issue Tracker</h1>
     </header>
     <main className="contents">
-      <Route exact path="/issues" component={withRouter(IssueList)} />
-      <Route exact path="/issues/:id" component={IssueEdit} />
-      <Route path="*" component={NoMatch} />
+      <HashRouter>
+        <Switch>
+          <Route exact path="/issues" component={withRouter(IssueList)} />
+          <Route exact path="/issues/:id" component={IssueEdit} />
+          <Route path="*" component={NoMatch} />
+        </Switch>
+      </HashRouter>
     </main>
     <footer className="footer">
       Full source code available at GitHub.com{" "}
