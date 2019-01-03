@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import IssueAdd from "./IssueAdd";
 import IssueFilter from "./IssueFilter";
@@ -65,7 +66,11 @@ const IssueRow = props => React.createElement(
   React.createElement(
     "td",
     null,
-    props.issue._id
+    React.createElement(
+      Link,
+      { to: `/issues/${props.issue._id}` },
+      props.issue._id.substr(-4)
+    )
   ),
   React.createElement(
     "td",
