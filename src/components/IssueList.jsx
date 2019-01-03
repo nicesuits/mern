@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import qs from "query-string";
 
 import IssueAdd from "./IssueAdd";
 import IssueFilter from "./IssueFilter";
@@ -51,6 +52,7 @@ export default class IssueList extends React.Component {
     super();
     this.state = { issues: [] };
     this.createIssue = this.createIssue.bind(this);
+    this.setFilter = this.setFilter.bind(this);
   }
   componentDidMount() {
     this.loadData();
@@ -106,11 +108,18 @@ export default class IssueList extends React.Component {
         console.error(`Error in sending data to server: ${err.message}`)
       );
   }
+  setFilter(query) {
+    console.log(qs.stringify(query));
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `?${qs.stringify(query)}`
+    });
+  }
   render() {
     return (
       <div>
         <h1>Issue Tracker</h1>
-        <IssueFilter />
+        <IssueFilter setFilter={this.setFilter} />
         <hr />
         <IssueTable issues={this.state.issues} />
         <hr />
