@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import DateInput from "./DateInput.jsx";
 import NumInput from "./NumInput.jsx";
 
 export default class IssueEdit extends Component {
@@ -13,11 +14,13 @@ export default class IssueEdit extends Component {
         status: "",
         owner: "",
         effort: null,
-        completionDate: "",
+        completionDate: null,
         created: ""
-      }
+      },
+      invalidFields: {}
     };
     this.onChange = this.onChange.bind(this);
+    this.onValidityChange = this.onValidityChange.bind(this);
   }
   componentDidMount() {
     this.loadData();
@@ -33,6 +36,15 @@ export default class IssueEdit extends Component {
     issue[e.target.name] = value;
     this.setState({ issue });
   }
+  onValidityChange(e, valid) {
+    const invalidFields = { ...this.state.invalidFields };
+    if (!valid) {
+      invalidFields[e.target.name] = true;
+    } else {
+      delete invalidFields[e.target.name];
+    }
+    this.setState({ invalidFields });
+  }
   loadData() {
     fetch(`/api/issues/${this.props.match.params.id}`).then(response => {
       if (response.ok) {
@@ -41,7 +53,7 @@ export default class IssueEdit extends Component {
           issue.completionDate =
             issue.completionDate != null
               ? new Date(issue.completionDate).toDateString()
-              : "";
+              : null;
           this.setState({ issue });
         });
       } else {
@@ -57,6 +69,12 @@ export default class IssueEdit extends Component {
   }
   render() {
     const issue = this.state.issue;
+    const validationMessage =
+      Object.keys(this.state.invalidFields).length === 0 ? null : (
+        <div className="error">
+          Please correct invalid fields before submitting
+        </div>
+      );
     return (
       <div>
         <form>
@@ -91,11 +109,11 @@ export default class IssueEdit extends Component {
           />
           <br />
           Completion Date:{" "}
-          <input
-            type="text"
+          <DateInput
             name="completionDate"
             value={issue.completionDate}
             onChange={this.onChange}
+            onValidityChange={this.onValidityChange}
           />
           <br />
           Title:{" "}
@@ -107,6 +125,7 @@ export default class IssueEdit extends Component {
             onChange={this.onChange}
           />
           <br />
+          {validationMessage}
           <button type="submit">Submit</button>
           <br />
           <Link to="/issues">Back to issue list</Link>
