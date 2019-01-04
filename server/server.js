@@ -1,7 +1,8 @@
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-const MongoClient = require("mongodb").MongoClient;
+const mongodb = require("mongodb");
+const MongoClient = mongodb.MongoClient;
 
 const app = express();
 let db;
@@ -23,6 +24,33 @@ app.get("/api/issues", (req, res) => {
     .then(issues => {
       const metadata = { total_count: issues.length };
       res.json({ _metadata: metadata, records: issues });
+    })
+    .catch(err => {
+      console.error(`[MongoDB - FETCH ERROR]: ${err}`);
+      res.status(500).json({ message: `Internal Server Error: ${err}` });
+    });
+});
+
+app.get("/api/issues/:id", (req, res) => {
+  let issueID;
+  try {
+    issueID = new mongodb.ObjectID(req.params.id);
+  } catch (err) {
+    res.status(422).json({
+      message: `[MongoDB - GET :id - ERROR]: Invalid issue ID format: ${err}`
+    });
+    return;
+  }
+  db.collection("issues")
+    .find({ _id: issueID })
+    .limit(1)
+    .next()
+    .then(issue => {
+      if (!issue)
+        res.status(422).json({
+          message: `[MongoDB - GET :id - ERROR]: No such issue: ${err}`
+        });
+      else res.json(issue);
     })
     .catch(err => {
       console.error(`[MongoDB - FETCH ERROR]: ${err}`);
@@ -52,7 +80,7 @@ app.post("/api/issues", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.sendfile(path.resolve("static/index.html"));
+  res.sendFile(path.resolve("static/index.html"));
 });
 
 MongoClient.connect(
