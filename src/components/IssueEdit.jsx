@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import NumInput from "./NumInput.jsx";
+
 export default class IssueEdit extends Component {
   constructor() {
     super();
@@ -10,7 +12,7 @@ export default class IssueEdit extends Component {
         title: "",
         status: "",
         owner: "",
-        effort: "",
+        effort: null,
         completionDate: "",
         created: ""
       }
@@ -25,8 +27,10 @@ export default class IssueEdit extends Component {
       this.loadData();
   }
   onChange(e) {
-    const issue = Object.assign({}, this.state.issue);
-    issue[e.target.name] = e.target.value;
+    const issue = { ...this.state.issue };
+    const value =
+      convertedValue !== undefined ? convertedValue : event.target.value;
+    issue[e.target.name] = value;
     this.setState({ issue });
   }
   loadData() {
@@ -38,7 +42,6 @@ export default class IssueEdit extends Component {
             issue.completionDate != null
               ? new Date(issue.completionDate).toDateString()
               : "";
-          issue.effort = issue.effort != null ? issue.effort.toString() : "";
           this.setState({ issue });
         });
       } else {
@@ -80,8 +83,7 @@ export default class IssueEdit extends Component {
           />
           <br />
           Effort:{" "}
-          <input
-            type="number"
+          <NumInput
             size={5}
             name="effort"
             value={issue.effort}
