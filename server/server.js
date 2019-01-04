@@ -79,6 +79,36 @@ app.post("/api/issues", (req, res) => {
     });
 });
 
+app.put("/api/issues/:id", (req, res) => {
+  let issueID;
+  try {
+    issueID = new mongodb.ObjectID(req.params.id);
+  } catch (err) {
+    res.status(422).json({
+      message: `[MongoDB - GET :id - ERROR]: Invalid issue ID format: ${err}`
+    });
+    return;
+  }
+  const issue = req.body;
+  delete issue._id;
+
+  db.collection("issues")
+    .update({ _id: issueID }, issue)
+    .then(() => {
+      db.collection("issues")
+        .find({ _id: issueID })
+        .limit(1)
+        .next();
+    })
+    .then(savedIssue => {
+      res.json(savedIssue);
+    })
+    .catch(err => {
+      console.error(`[MongoDB - UPDATE ERROR]: ${err}`);
+      res.status(500).json({ message: `Internal Server Error: ${err}` });
+    });
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve("static/index.html"));
 });
