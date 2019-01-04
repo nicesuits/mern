@@ -17,20 +17,20 @@ export default class IssueFilter extends React.Component {
     this.clearFilter = this.clearFilter.bind(this);
   }
   componentWillReceiveProps(newProps) {
-    this.state = {
+    this.setState({
       status: newProps.initFilter.status || "",
       effort_gte: newProps.initFilter.effort_gte || "",
       effort_lte: newProps.initFilter.effort_lte || "",
       changed: false
-    };
+    });
   }
   resetFilter() {
-    this.state = {
+    this.setState({
       status: this.props.initFilter.status || "",
       effort_gte: this.props.initFilter.effort_gte || "",
       effort_lte: this.props.initFilter.effort_lte || "",
       changed: false
-    };
+    });
   }
   clearFilter() {
     this.props.setFilter({});
