@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import qs from "query-string";
+import { Button, Glyphicon } from "react-bootstrap";
 
 import IssueAdd from "./IssueAdd";
 import IssueFilter from "./IssueFilter";
@@ -112,9 +113,9 @@ const IssueRow = props => {
       "td",
       null,
       React.createElement(
-        "button",
-        { onClick: onDeleteClick },
-        "Delete"
+        Button,
+        { bsSize: "xsmall", onClick: onDeleteClick },
+        React.createElement(Glyphicon, { glyph: "trash" })
       )
     )
   );
