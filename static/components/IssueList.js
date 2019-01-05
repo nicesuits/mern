@@ -114,8 +114,8 @@ const IssueRow = props => {
       null,
       React.createElement(
         Button,
-        { bsSize: "xsmall", onClick: onDeleteClick },
-        React.createElement(Glyphicon, { glyph: "trash" })
+        { className: "btn btn-danger", onClick: onDeleteClick },
+        "Delete"
       )
     )
   );

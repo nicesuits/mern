@@ -51,8 +51,8 @@ const IssueRow = props => {
       </td>
       <td>{props.issue.title}</td>
       <td>
-        <Button bsSize="xsmall" onClick={onDeleteClick}>
-          <Glyphicon glyph="trash" />
+        <Button className="btn btn-danger" onClick={onDeleteClick}>
+          Delete
         </Button>
       </td>
     </tr>
