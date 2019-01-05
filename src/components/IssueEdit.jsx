@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 import DateInput from "./DateInput";
 import NumInput from "./NumInput";
@@ -162,7 +163,9 @@ export default class IssueEdit extends Component {
           />
           <br />
           {validationMessage}
-          <button type="submit">Submit</button>
+          <Button className="btn btn-primary" type="submit">
+            Submit
+          </Button>
           <br />
           <Link to="/issues">Back to issue list</Link>
         </form>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 export default class IssueFilter extends React.Component {
   constructor(props) {
@@ -57,7 +58,7 @@ export default class IssueFilter extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="input-group">
         Status:
         <select value={this.state.status} onChange={this.onChangeStatus}>
           <option value="">(Any)</option>
@@ -70,6 +71,7 @@ export default class IssueFilter extends React.Component {
         </select>
         &nbsp;Effort between:
         <input
+          className="form-control"
           type="number"
           size={5}
           value={this.state.effort_gte}
@@ -77,16 +79,25 @@ export default class IssueFilter extends React.Component {
         />
         &nbsp;-&nbsp;
         <input
+          className="form-control"
           type="number"
           size={5}
           value={this.state.effort_lte}
           onChange={this.onChangeEffortLte}
         />
-        <button onClick={this.applyFilter}>Apply</button>
-        <button onClick={this.resetFilter} disabled={!this.state.changed}>
+        <Button className="btn btn-primary" onClick={this.applyFilter}>
+          Apply
+        </Button>
+        <Button
+          className="btn btn-primary"
+          onClick={this.resetFilter}
+          disabled={!this.state.changed}
+        >
           Reset
-        </button>
-        <button onClick={this.clearFilter}>Clear</button>
+        </Button>
+        <Button className="btn btn-primary" onClick={this.clearFilter}>
+          Clear
+        </Button>
       </div>
     );
   }

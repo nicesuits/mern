@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 export default class IssueFilter extends React.Component {
   constructor(props) {
@@ -56,7 +57,7 @@ export default class IssueFilter extends React.Component {
   render() {
     return React.createElement(
       "div",
-      null,
+      { className: "input-group" },
       "Status:",
       React.createElement(
         "select",
@@ -99,6 +100,7 @@ export default class IssueFilter extends React.Component {
       ),
       "\xA0Effort between:",
       React.createElement("input", {
+        className: "form-control",
         type: "number",
         size: 5,
         value: this.state.effort_gte,
@@ -106,24 +108,29 @@ export default class IssueFilter extends React.Component {
       }),
       "\xA0-\xA0",
       React.createElement("input", {
+        className: "form-control",
         type: "number",
         size: 5,
         value: this.state.effort_lte,
         onChange: this.onChangeEffortLte
       }),
       React.createElement(
-        "button",
-        { onClick: this.applyFilter },
+        Button,
+        { className: "btn btn-primary", onClick: this.applyFilter },
         "Apply"
       ),
       React.createElement(
-        "button",
-        { onClick: this.resetFilter, disabled: !this.state.changed },
+        Button,
+        {
+          className: "btn btn-primary",
+          onClick: this.resetFilter,
+          disabled: !this.state.changed
+        },
         "Reset"
       ),
       React.createElement(
-        "button",
-        { onClick: this.clearFilter },
+        Button,
+        { className: "btn btn-primary", onClick: this.clearFilter },
         "Clear"
       )
     );

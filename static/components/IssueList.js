@@ -10,10 +10,10 @@ function IssueTable(props) {
   const issueRows = props.issues.map(issue => React.createElement(IssueRow, { key: issue._id, issue: issue, deleteIssue: props.deleteIssue }));
   return React.createElement(
     "table",
-    { className: "bordered-table" },
+    { className: "table table-striped table-hover" },
     React.createElement(
       "thead",
-      null,
+      { className: "thead-light" },
       React.createElement(
         "tr",
         null,

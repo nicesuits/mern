@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 import DateInput from "./DateInput";
 import NumInput from "./NumInput";
@@ -178,8 +179,8 @@ export default class IssueEdit extends Component {
         React.createElement("br", null),
         validationMessage,
         React.createElement(
-          "button",
-          { type: "submit" },
+          Button,
+          { className: "btn btn-primary", type: "submit" },
           "Submit"
         ),
         React.createElement("br", null),

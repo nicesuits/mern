@@ -11,8 +11,8 @@ function IssueTable(props) {
     <IssueRow key={issue._id} issue={issue} deleteIssue={props.deleteIssue} />
   ));
   return (
-    <table className="bordered-table">
-      <thead>
+    <table className="table table-striped table-hover">
+      <thead className="thead-light">
         <tr>
           <th>ID</th>
           <th>Status</th>
