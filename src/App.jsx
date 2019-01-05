@@ -14,7 +14,7 @@ import IssueEdit from "./components/IssueEdit";
 const contentNode = document.getElementById("contents");
 const NoMatch = () => <p>Page Not Found</p>;
 const App = () => (
-  <div>
+  <div className="container-fluid">
     <header className="header">
       <h1>Issue Tracker</h1>
     </header>

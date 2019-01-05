@@ -13,7 +13,7 @@ const NoMatch = () => React.createElement(
 );
 const App = () => React.createElement(
   "div",
-  null,
+  { className: "container-fluid" },
   React.createElement(
     "header",
     { className: "header" },
