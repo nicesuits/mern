@@ -1,5 +1,14 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  Row,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  InputGroup,
+  ButtonToolbar
+} from "react-bootstrap";
 
 export default class IssueFilter extends React.Component {
   constructor(props) {
@@ -58,47 +67,58 @@ export default class IssueFilter extends React.Component {
   }
   render() {
     return (
-      <div className="input-group">
-        Status:
-        <select value={this.state.status} onChange={this.onChangeStatus}>
-          <option value="">(Any)</option>
-          <option value="New">New</option>
-          <option value="Open">Open</option>
-          <option value="Assigned">Assigned</option>
-          <option value="Fixed">Fixed</option>
-          <option value="Verified">Verified</option>
-          <option value="Closed">Closed</option>
-        </select>
-        &nbsp;Effort between:
-        <input
-          className="form-control"
-          type="number"
-          size={5}
-          value={this.state.effort_gte}
-          onChange={this.onChangeEffortGte}
-        />
-        &nbsp;-&nbsp;
-        <input
-          className="form-control"
-          type="number"
-          size={5}
-          value={this.state.effort_lte}
-          onChange={this.onChangeEffortLte}
-        />
-        <Button className="btn btn-primary" onClick={this.applyFilter}>
-          Apply
-        </Button>
-        <Button
-          className="btn btn-primary"
-          onClick={this.resetFilter}
-          disabled={!this.state.changed}
-        >
-          Reset
-        </Button>
-        <Button className="btn btn-primary" onClick={this.clearFilter}>
-          Clear
-        </Button>
-      </div>
+      <Row>
+        <Col xs={6} sm={4} md={3} lg={2}>
+          <FormGroup>
+            <ControlLabel>Status:</ControlLabel>
+            <FormControl
+              componentClass="select"
+              value={this.state.status}
+              onChange={this.onChangeStatus}
+            >
+              <option value="">(Any)</option>
+              <option value="New">New</option>
+              <option value="Open">Open</option>
+              <option value="Assigned">Assigned</option>
+              <option value="Fixed">Fixed</option>
+              <option value="Verified">Verified</option>
+              <option value="Closed">Closed</option>
+            </FormControl>
+          </FormGroup>
+        </Col>
+        <Col xs={6} sm={4} md={3} lg={2}>
+          <FormGroup>
+            <ControlLabel>Effort</ControlLabel>
+            <InputGroup>
+              <FormControl
+                type="number"
+                value={this.state.effort_gte}
+                onChange={this.onChangeEffortGte}
+              />
+              <InputGroup.Addon>-</InputGroup.Addon>
+              <FormControl
+                type="number"
+                value={this.state.effort_lte}
+                onChange={this.onChangeEffortLte}
+              />
+            </InputGroup>
+          </FormGroup>
+        </Col>
+        <Col xs={6} sm={4} md={3} lg={2}>
+          <FormGroup>
+            <ControlLabel>&nbsp;</ControlLabel>
+            <ButtonToolbar>
+              <Button bsStyle="primary" onClick={this.applyFilter}>
+                Apply
+              </Button>
+              <Button onClick={this.resetFilter} disabled={!this.state.changed}>
+                Reset
+              </Button>
+              <Button onClick={this.clearFilter}>Clear</Button>
+            </ButtonToolbar>
+          </FormGroup>
+        </Col>
+      </Row>
     );
   }
 }
