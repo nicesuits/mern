@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import qs from "query-string";
+import { Button, Table, Panel } from "react-bootstrap";
 
 import IssueAdd from "./IssueAdd";
 import IssueFilter from "./IssueFilter";
@@ -10,8 +11,8 @@ function IssueTable(props) {
     <IssueRow key={issue._id} issue={issue} deleteIssue={props.deleteIssue} />
   ));
   return (
-    <table className="bordered-table">
-      <thead>
+    <Table bordered condensed hover responsive>
+      <thead className="thead-light">
         <tr>
           <th>ID</th>
           <th>Status</th>
@@ -24,7 +25,7 @@ function IssueTable(props) {
         </tr>
       </thead>
       <tbody>{issueRows}</tbody>
-    </table>
+    </Table>
   );
 }
 
@@ -50,7 +51,9 @@ const IssueRow = props => {
       </td>
       <td>{props.issue.title}</td>
       <td>
-        <button onClick={onDeleteClick}>Delete</button>
+        <Button className="btn btn-danger" onClick={onDeleteClick}>
+          Delete
+        </Button>
       </td>
     </tr>
   );
@@ -138,13 +141,13 @@ export default class IssueList extends React.Component {
   render() {
     return (
       <div>
-        <IssueFilter
-          setFilter={this.setFilter}
-          initFilter={this.props.location.search}
-        />
-        <hr />
+        <Panel collapsible header="Filter">
+          <IssueFilter
+            setFilter={this.setFilter}
+            initFilter={this.props.location.search}
+          />
+        </Panel>
         <IssueTable issues={this.state.issues} deleteIssue={this.deleteIssue} />
-        <hr />
         <IssueAdd createIssue={this.createIssue} />
       </div>
     );

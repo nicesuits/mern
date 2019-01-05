@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 export default class IssueAdd extends React.Component {
   constructor() {
@@ -23,12 +24,26 @@ export default class IssueAdd extends React.Component {
       null,
       React.createElement(
         "form",
-        { name: "issueAdd", onSubmit: this.handleSubmit },
-        React.createElement("input", { type: "text", name: "owner", placeholder: "Owner" }),
-        React.createElement("input", { type: "text", name: "title", placeholder: "Title" }),
+        {
+          className: "input-group",
+          name: "issueAdd",
+          onSubmit: this.handleSubmit
+        },
+        React.createElement("input", {
+          className: "form-control",
+          type: "text",
+          name: "owner",
+          placeholder: "Owner"
+        }),
+        React.createElement("input", {
+          className: "form-control",
+          type: "text",
+          name: "title",
+          placeholder: "Title"
+        }),
         React.createElement(
-          "button",
-          null,
+          Button,
+          { className: "btn btn-primary" },
           "Add"
         )
       )

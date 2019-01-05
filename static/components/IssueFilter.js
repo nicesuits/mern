@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, Col, Row, FormGroup, FormControl, ControlLabel, InputGroup, ButtonToolbar } from "react-bootstrap";
 
 export default class IssueFilter extends React.Component {
   constructor(props) {
@@ -55,76 +56,127 @@ export default class IssueFilter extends React.Component {
   }
   render() {
     return React.createElement(
-      "div",
+      Row,
       null,
-      "Status:",
       React.createElement(
-        "select",
-        { value: this.state.status, onChange: this.onChangeStatus },
+        Col,
+        { xs: 6, sm: 4, md: 3, lg: 2 },
         React.createElement(
-          "option",
-          { value: "" },
-          "(Any)"
-        ),
-        React.createElement(
-          "option",
-          { value: "New" },
-          "New"
-        ),
-        React.createElement(
-          "option",
-          { value: "Open" },
-          "Open"
-        ),
-        React.createElement(
-          "option",
-          { value: "Assigned" },
-          "Assigned"
-        ),
-        React.createElement(
-          "option",
-          { value: "Fixed" },
-          "Fixed"
-        ),
-        React.createElement(
-          "option",
-          { value: "Verified" },
-          "Verified"
-        ),
-        React.createElement(
-          "option",
-          { value: "Closed" },
-          "Closed"
+          FormGroup,
+          null,
+          React.createElement(
+            ControlLabel,
+            null,
+            "Status:"
+          ),
+          React.createElement(
+            FormControl,
+            {
+              componentClass: "select",
+              value: this.state.status,
+              onChange: this.onChangeStatus
+            },
+            React.createElement(
+              "option",
+              { value: "" },
+              "(Any)"
+            ),
+            React.createElement(
+              "option",
+              { value: "New" },
+              "New"
+            ),
+            React.createElement(
+              "option",
+              { value: "Open" },
+              "Open"
+            ),
+            React.createElement(
+              "option",
+              { value: "Assigned" },
+              "Assigned"
+            ),
+            React.createElement(
+              "option",
+              { value: "Fixed" },
+              "Fixed"
+            ),
+            React.createElement(
+              "option",
+              { value: "Verified" },
+              "Verified"
+            ),
+            React.createElement(
+              "option",
+              { value: "Closed" },
+              "Closed"
+            )
+          )
         )
       ),
-      "\xA0Effort between:",
-      React.createElement("input", {
-        type: "number",
-        size: 5,
-        value: this.state.effort_gte,
-        onChange: this.onChangeEffortGte
-      }),
-      "\xA0-\xA0",
-      React.createElement("input", {
-        type: "number",
-        size: 5,
-        value: this.state.effort_lte,
-        onChange: this.onChangeEffortLte
-      }),
       React.createElement(
-        "button",
-        { onClick: this.applyFilter },
-        "Apply"
+        Col,
+        { xs: 6, sm: 4, md: 3, lg: 2 },
+        React.createElement(
+          FormGroup,
+          null,
+          React.createElement(
+            ControlLabel,
+            null,
+            "Effort"
+          ),
+          React.createElement(
+            InputGroup,
+            null,
+            React.createElement(FormControl, {
+              type: "number",
+              value: this.state.effort_gte,
+              onChange: this.onChangeEffortGte
+            }),
+            React.createElement(
+              InputGroup.Addon,
+              null,
+              "-"
+            ),
+            React.createElement(FormControl, {
+              type: "number",
+              value: this.state.effort_lte,
+              onChange: this.onChangeEffortLte
+            })
+          )
+        )
       ),
       React.createElement(
-        "button",
-        { onClick: this.resetFilter, disabled: !this.state.changed },
-        "Reset"
-      ),
-      React.createElement(
-        "button",
-        { onClick: this.clearFilter },
-        "Clear"
+        Col,
+        { xs: 6, sm: 4, md: 3, lg: 2 },
+        React.createElement(
+          FormGroup,
+          null,
+          React.createElement(
+            ControlLabel,
+            null,
+            "\xA0"
+          ),
+          React.createElement(
+            ButtonToolbar,
+            null,
+            React.createElement(
+              Button,
+              { bsStyle: "primary", onClick: this.applyFilter },
+              "Apply"
+            ),
+            React.createElement(
+              Button,
+              { onClick: this.resetFilter, disabled: !this.state.changed },
+              "Reset"
+            ),
+            React.createElement(
+              Button,
+              { onClick: this.clearFilter },
+              "Clear"
+            )
+          )
+        )
       )
     );
   }

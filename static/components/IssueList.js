@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import qs from "query-string";
+import { Button, Table, Panel } from "react-bootstrap";
 
 import IssueAdd from "./IssueAdd";
 import IssueFilter from "./IssueFilter";
@@ -8,11 +9,11 @@ import IssueFilter from "./IssueFilter";
 function IssueTable(props) {
   const issueRows = props.issues.map(issue => React.createElement(IssueRow, { key: issue._id, issue: issue, deleteIssue: props.deleteIssue }));
   return React.createElement(
-    "table",
-    { className: "bordered-table" },
+    Table,
+    { bordered: true, condensed: true, hover: true, responsive: true },
     React.createElement(
       "thead",
-      null,
+      { className: "thead-light" },
       React.createElement(
         "tr",
         null,
@@ -112,8 +113,8 @@ const IssueRow = props => {
       "td",
       null,
       React.createElement(
-        "button",
-        { onClick: onDeleteClick },
+        Button,
+        { className: "btn btn-danger", onClick: onDeleteClick },
         "Delete"
       )
     )
@@ -186,13 +187,15 @@ export default class IssueList extends React.Component {
     return React.createElement(
       "div",
       null,
-      React.createElement(IssueFilter, {
-        setFilter: this.setFilter,
-        initFilter: this.props.location.search
-      }),
-      React.createElement("hr", null),
+      React.createElement(
+        Panel,
+        { collapsible: true, header: "Filter" },
+        React.createElement(IssueFilter, {
+          setFilter: this.setFilter,
+          initFilter: this.props.location.search
+        })
+      ),
       React.createElement(IssueTable, { issues: this.state.issues, deleteIssue: this.deleteIssue }),
-      React.createElement("hr", null),
       React.createElement(IssueAdd, { createIssue: this.createIssue })
     );
   }

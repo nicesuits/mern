@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 import DateInput from "./DateInput";
 import NumInput from "./NumInput";
@@ -112,58 +113,86 @@ export default class IssueEdit extends Component {
         </div>
       );
     return (
-      <div>
+      <div className="container">
         <form onSubmit={this.onSubmit}>
-          ID: {issue._id}
-          <br />
-          Created: {issue.created ? issue.created.toDateString() : ""}
-          <br />
-          Status:{" "}
-          <select name="status" value={issue.status} onChange={this.onChange}>
-            <option value="New">New</option>
-            <option value="Open">Open</option>
-            <option value="Assigned">Assigned</option>
-            <option value="Fixed">Fixed</option>
-            <option value="Verified">Verified</option>
-            <option value="Closed">Closed</option>
-          </select>
-          <br />
-          Owner:{" "}
-          <input
-            type="text"
-            name="owner"
-            value={issue.owner}
-            onChange={this.onChange}
-          />
-          <br />
-          Effort:{" "}
-          <NumInput
-            size={5}
-            name="effort"
-            value={issue.effort}
-            onChange={this.onChange}
-          />
-          <br />
-          Completion Date:{" "}
-          <DateInput
-            name="completionDate"
-            value={issue.completionDate}
-            onChange={this.onChange}
-            onValidityChange={this.onValidityChange}
-          />
-          <br />
-          Title:{" "}
-          <input
-            type="text"
-            size={50}
-            name="title"
-            value={issue.title}
-            onChange={this.onChange}
-          />
-          <br />
+          <div className="row">
+            <div className="col">ID: {issue._id}</div>
+          </div>
+          <div className="row">
+            <div className="col">
+              Created: {issue.created ? issue.created.toDateString() : ""}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              Status:{" "}
+              <select
+                name="status"
+                value={issue.status}
+                onChange={this.onChange}
+              >
+                <option value="New">New</option>
+                <option value="Open">Open</option>
+                <option value="Assigned">Assigned</option>
+                <option value="Fixed">Fixed</option>
+                <option value="Verified">Verified</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              Owner:{" "}
+              <input
+                type="text"
+                name="owner"
+                value={issue.owner}
+                onChange={this.onChange}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              Effort:{" "}
+              <NumInput
+                size={5}
+                name="effort"
+                value={issue.effort}
+                onChange={this.onChange}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              Completion Date:{" "}
+              <DateInput
+                name="completionDate"
+                value={issue.completionDate}
+                onChange={this.onChange}
+                onValidityChange={this.onValidityChange}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              Title:{" "}
+              <input
+                type="text"
+                size={50}
+                name="title"
+                value={issue.title}
+                onChange={this.onChange}
+              />
+            </div>
+          </div>
           {validationMessage}
-          <button type="submit">Submit</button>
-          <br />
+          <div className="row">
+            <div className="col">
+              <Button className="btn btn-primary" type="submit">
+                Submit
+              </Button>
+            </div>
+          </div>
           <Link to="/issues">Back to issue list</Link>
         </form>
       </div>

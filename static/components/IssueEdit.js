@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 import DateInput from "./DateInput";
 import NumInput from "./NumInput";
@@ -92,97 +93,157 @@ export default class IssueEdit extends Component {
     );
     return React.createElement(
       "div",
-      null,
+      { className: "container" },
       React.createElement(
         "form",
         { onSubmit: this.onSubmit },
-        "ID: ",
-        issue._id,
-        React.createElement("br", null),
-        "Created: ",
-        issue.created ? issue.created.toDateString() : "",
-        React.createElement("br", null),
-        "Status:",
-        " ",
         React.createElement(
-          "select",
-          { name: "status", value: issue.status, onChange: this.onChange },
+          "div",
+          { className: "row" },
           React.createElement(
-            "option",
-            { value: "New" },
-            "New"
-          ),
-          React.createElement(
-            "option",
-            { value: "Open" },
-            "Open"
-          ),
-          React.createElement(
-            "option",
-            { value: "Assigned" },
-            "Assigned"
-          ),
-          React.createElement(
-            "option",
-            { value: "Fixed" },
-            "Fixed"
-          ),
-          React.createElement(
-            "option",
-            { value: "Verified" },
-            "Verified"
-          ),
-          React.createElement(
-            "option",
-            { value: "Closed" },
-            "Closed"
+            "div",
+            { className: "col" },
+            "ID: ",
+            issue._id
           )
         ),
-        React.createElement("br", null),
-        "Owner:",
-        " ",
-        React.createElement("input", {
-          type: "text",
-          name: "owner",
-          value: issue.owner,
-          onChange: this.onChange
-        }),
-        React.createElement("br", null),
-        "Effort:",
-        " ",
-        React.createElement(NumInput, {
-          size: 5,
-          name: "effort",
-          value: issue.effort,
-          onChange: this.onChange
-        }),
-        React.createElement("br", null),
-        "Completion Date:",
-        " ",
-        React.createElement(DateInput, {
-          name: "completionDate",
-          value: issue.completionDate,
-          onChange: this.onChange,
-          onValidityChange: this.onValidityChange
-        }),
-        React.createElement("br", null),
-        "Title:",
-        " ",
-        React.createElement("input", {
-          type: "text",
-          size: 50,
-          name: "title",
-          value: issue.title,
-          onChange: this.onChange
-        }),
-        React.createElement("br", null),
+        React.createElement(
+          "div",
+          { className: "row" },
+          React.createElement(
+            "div",
+            { className: "col" },
+            "Created: ",
+            issue.created ? issue.created.toDateString() : ""
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "row" },
+          React.createElement(
+            "div",
+            { className: "col" },
+            "Status:",
+            " ",
+            React.createElement(
+              "select",
+              {
+                name: "status",
+                value: issue.status,
+                onChange: this.onChange
+              },
+              React.createElement(
+                "option",
+                { value: "New" },
+                "New"
+              ),
+              React.createElement(
+                "option",
+                { value: "Open" },
+                "Open"
+              ),
+              React.createElement(
+                "option",
+                { value: "Assigned" },
+                "Assigned"
+              ),
+              React.createElement(
+                "option",
+                { value: "Fixed" },
+                "Fixed"
+              ),
+              React.createElement(
+                "option",
+                { value: "Verified" },
+                "Verified"
+              ),
+              React.createElement(
+                "option",
+                { value: "Closed" },
+                "Closed"
+              )
+            )
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "row" },
+          React.createElement(
+            "div",
+            { className: "col" },
+            "Owner:",
+            " ",
+            React.createElement("input", {
+              type: "text",
+              name: "owner",
+              value: issue.owner,
+              onChange: this.onChange
+            })
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "row" },
+          React.createElement(
+            "div",
+            { className: "col" },
+            "Effort:",
+            " ",
+            React.createElement(NumInput, {
+              size: 5,
+              name: "effort",
+              value: issue.effort,
+              onChange: this.onChange
+            })
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "row" },
+          React.createElement(
+            "div",
+            { className: "col" },
+            "Completion Date:",
+            " ",
+            React.createElement(DateInput, {
+              name: "completionDate",
+              value: issue.completionDate,
+              onChange: this.onChange,
+              onValidityChange: this.onValidityChange
+            })
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "row" },
+          React.createElement(
+            "div",
+            { className: "col" },
+            "Title:",
+            " ",
+            React.createElement("input", {
+              type: "text",
+              size: 50,
+              name: "title",
+              value: issue.title,
+              onChange: this.onChange
+            })
+          )
+        ),
         validationMessage,
         React.createElement(
-          "button",
-          { type: "submit" },
-          "Submit"
+          "div",
+          { className: "row" },
+          React.createElement(
+            "div",
+            { className: "col" },
+            React.createElement(
+              Button,
+              { className: "btn btn-primary", type: "submit" },
+              "Submit"
+            )
+          )
         ),
-        React.createElement("br", null),
         React.createElement(
           Link,
           { to: "/issues" },
