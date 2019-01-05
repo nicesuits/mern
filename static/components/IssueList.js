@@ -6,7 +6,7 @@ import IssueAdd from "./IssueAdd";
 import IssueFilter from "./IssueFilter";
 
 function IssueTable(props) {
-  const issueRows = props.issues.map(issue => React.createElement(IssueRow, { key: issue._id, issue: issue }));
+  const issueRows = props.issues.map(issue => React.createElement(IssueRow, { key: issue._id, issue: issue, deleteIssue: props.deleteIssue }));
   return React.createElement(
     "table",
     { className: "bordered-table" },
@@ -50,7 +50,8 @@ function IssueTable(props) {
           "th",
           null,
           "Title"
-        )
+        ),
+        React.createElement("th", null)
       )
     ),
     React.createElement(
@@ -61,49 +62,63 @@ function IssueTable(props) {
   );
 }
 
-const IssueRow = props => React.createElement(
-  "tr",
-  null,
-  React.createElement(
-    "td",
+const IssueRow = props => {
+  function onDeleteClick() {
+    props.deleteIssue(props.issue._id);
+  }
+  return React.createElement(
+    "tr",
     null,
     React.createElement(
-      Link,
-      { to: `/issues/${props.issue._id}` },
-      props.issue._id.substr(-4)
+      "td",
+      null,
+      React.createElement(
+        Link,
+        { to: `/issues/${props.issue._id}` },
+        props.issue._id.substr(-4)
+      )
+    ),
+    React.createElement(
+      "td",
+      null,
+      props.issue.status
+    ),
+    React.createElement(
+      "td",
+      null,
+      props.issue.owner
+    ),
+    React.createElement(
+      "td",
+      null,
+      props.issue.created.toDateString()
+    ),
+    React.createElement(
+      "td",
+      null,
+      props.issue.effort
+    ),
+    React.createElement(
+      "td",
+      null,
+      props.issue.completionDate ? props.issue.completionDate.toDateString() : ""
+    ),
+    React.createElement(
+      "td",
+      null,
+      props.issue.title
+    ),
+    React.createElement(
+      "td",
+      null,
+      React.createElement(
+        "button",
+        { onClick: onDeleteClick },
+        "Delete"
+      )
     )
-  ),
-  React.createElement(
-    "td",
-    null,
-    props.issue.status
-  ),
-  React.createElement(
-    "td",
-    null,
-    props.issue.owner
-  ),
-  React.createElement(
-    "td",
-    null,
-    props.issue.created.toDateString()
-  ),
-  React.createElement(
-    "td",
-    null,
-    props.issue.effort
-  ),
-  React.createElement(
-    "td",
-    null,
-    props.issue.completionDate ? props.issue.completionDate.toDateString() : ""
-  ),
-  React.createElement(
-    "td",
-    null,
-    props.issue.title
-  )
-);
+  );
+};
 
 export default class IssueList extends React.Component {
   constructor() {
@@ -111,6 +126,7 @@ export default class IssueList extends React.Component {
     this.state = { issues: [] };
     this.createIssue = this.createIssue.bind(this);
     this.setFilter = this.setFilter.bind(this);
+    this.deleteIssue = this.deleteIssue.bind(this);
   }
   componentDidMount() {
     this.loadData();
@@ -161,6 +177,11 @@ export default class IssueList extends React.Component {
       this.setState({ issues: newIssues });
     }).catch(err => console.error(`Error in sending data to server: ${err.message}`));
   }
+  deleteIssue(id) {
+    fetch(`/api/issues/${id}`, { method: "DELETE" }).then(response => {
+      if (!response.ok) console.error("[MongoDB - DELETE ERROR]: Failed to delete issue");else this.loadData();
+    });
+  }
   render() {
     return React.createElement(
       "div",
@@ -170,7 +191,7 @@ export default class IssueList extends React.Component {
         initFilter: this.props.location.search
       }),
       React.createElement("hr", null),
-      React.createElement(IssueTable, { issues: this.state.issues }),
+      React.createElement(IssueTable, { issues: this.state.issues, deleteIssue: this.deleteIssue }),
       React.createElement("hr", null),
       React.createElement(IssueAdd, { createIssue: this.createIssue })
     );
