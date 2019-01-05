@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.2.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "mongodb": "^3.1.10",
@@ -33,6 +34,7 @@
     "babel-loader": "^8.0.4",
     "babel-preset-react": "^6.24.1",
     "nodemon": "^1.18.9",
+    "react-bootstrap": "^0.32.4",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.1.2"
   }
